@@ -2,7 +2,7 @@
 
 UVC Cameras support for capacitor apps connected via device's USB.
 Based on [UVCCamera](https://github.com/saki4510t/UVCCamera) library,
-using [Matuuu's](https://github.com/Metuuu/UVCCamera) forked repository to support SDK 30.
+using [Metuuu's](https://github.com/Metuuu/UVCCamera) forked repository to support SDK 30.
 
 This plugin enable web apps to take picture or access your UVC external camera.
 The plugin provides a native activity to access and opens stream from external camera,
