@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">libusbcamera</string>
+    <string name="select">Select USB Device</string>
+    <string name="refresh">Refresh</string>
+    <string name="camera">Camera</string>
+    <string name="no_device">Camera Device Not Found</string>
+    <string name="cancel">Cancel</string>
+</resources>

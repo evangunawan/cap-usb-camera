@@ -1,10 +1,9 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { UsbCameraPlugin } from './definitions';
+import type { UsbCameraPlugin, UsbCameraResult } from './definitions';
 
 export class UsbCameraWeb extends WebPlugin implements UsbCameraPlugin {
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  getPhoto(): Promise<UsbCameraResult> {
+    throw new Error('Method not implemented.');
   }
 }

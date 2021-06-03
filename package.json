@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/evangunawan/cap-usb-camera.git.git"
+    "url": "git+https://github.com/evangunawan/cap-usb-camera.git"
   },
   "bugs": {
     "url": "https://github.com/evangunawan/cap-usb-camera.git/issues"
