@@ -24,7 +24,7 @@ export interface UsbCameraPlugin {
   /**
    * Open native activity and get photo from usb camera device attached to the phone.
    * If there is no usb device connected, will return canceled exit code.
-   * @returns Image and result status.
+   * @returns {Promise<UsbCameraResult>} Image and result status.
    * */
   getPhoto(config?: UsbCameraPhotoOptions): Promise<UsbCameraResult>;
 }

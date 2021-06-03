@@ -103,7 +103,7 @@ public class UsbCameraPlugin extends Plugin {
         boolean saveToStorage = configObject.getBoolean("saveToStorage", false);
 
         Intent camIntent = new Intent(getActivity(), USBCameraActivity.class);
-        camIntent.putExtra("capture_to_storage", saveToStorage); // TODO: toggle capture_to_storage.
+        camIntent.putExtra("capture_to_storage", saveToStorage);
         startActivityForResult(call, camIntent, "imageResult");
     }
 

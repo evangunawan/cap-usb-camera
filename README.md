@@ -1,6 +1,21 @@
 # @periksa/cap-usb-camera
 
-USB Camera Support
+UVC Cameras support for capacitor apps connected via device's USB.
+Based on [UVCCamera](https://github.com/saki4510t/UVCCamera) library,
+using [Matuuu's](https://github.com/Metuuu/UVCCamera) forked repository to support SDK 30.
+
+This plugin enable web apps to take picture or access your UVC external camera.
+The plugin provides a native activity to access and opens stream from external camera,
+which you can capture, fetch photo, and get the data from the plugin call
+(it works similarly with [@capacitor/camera](https://capacitorjs.com/docs/apis/camera) plugin).
+It supports the functionality to save the image to your media storage too.
+
+Currently supports only Android platform, and not tested on many devices.
+
+### Tested Devices
+Tested and developed on an Android 11 Samsung Galaxy A51.
+
+Please report or open an issue if your device is bugged or crashed using the plugin.
 
 ## Install
 
@@ -59,3 +74,13 @@ If there is no usb device connected, will return canceled exit code.
 | **`data`**          | <code>{ dataURL?: string; fileURI?: string; }</code> | Result data payload, contains image in base64 DataURL, and Android filesystem URI to the file. |
 
 </docgen-api>
+
+## Contributing
+Any contribution is very much appreciated, just clone the project and post a pull request!
+Thank you very much!
+
+### Unimplemented and future functionalities
+- Activity not yet supports image manipulation, such as brightness, contrast and mirroring.
+However the library supports this.
+- Still have bugs with device connectivity.
+- Activity user interface is somehow very simple, and not tested on more screen dimensions.
