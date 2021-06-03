@@ -24,6 +24,23 @@ npm install @periksa/cap-usb-camera
 npx cap sync
 ```
 
+Modify your `build.gradle` (top-level project scope),
+usually on `/android/build.gradle` directory if you are developing ionic-capacitor project.
+
+Add new maven repository line to your `allprojects` -> `repositories` body.
+
+```gradle
+allprojects {
+  repositories {
+      google()
+      jcenter()
+      // Add This Line
+      maven { url 'https://raw.github.com/saki4510t/libcommon/master/repository/' }
+  }
+}
+```
+Then sync your gradle project by pressing "Sync Now" on the top after you modify the file.
+
 ## API
 
 <docgen-index>
