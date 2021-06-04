@@ -1,6 +1,6 @@
 {
   "name": "@periksa/cap-usb-camera",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "UVC Camera support for capacitor apps.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

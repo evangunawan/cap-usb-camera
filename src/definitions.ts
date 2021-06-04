@@ -6,7 +6,7 @@ export interface UsbCameraPhotoOptions {
 export interface UsbCameraResult {
   /** Status Code from Intent ResultCode. */
   status_code: number;
-  /** Description of the status code number. */
+  /** Description string of the status code number. */
   status_code_s: string;
   /** Description of exit or cancel reason. */
   exit_code: string;

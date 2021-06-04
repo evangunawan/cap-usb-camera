@@ -119,7 +119,7 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
         Log.d(TAG, "***** Device count: " + mUSBMonitor.getDeviceCount());
 
         if (mUSBMonitor.getDeviceCount() == 0) {
-            intentResult.putExtra("exit_code", "exit_no_devices");
+            intentResult.putExtra("exit_code", "exit_no_device");
             setResult(RESULT_CANCELED, intentResult);
             finish();
         }
@@ -165,6 +165,7 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
         @Override
         public void onDettach(UsbDevice device) {
             Log.d(TAG, "Device Detached");
+            mCameraHandler.close();
         }
 
         @Override
@@ -178,11 +179,13 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
         @Override
         public void onDisconnect(UsbDevice device, LibUVCCameraUSBMonitor.UsbControlBlock ctrlBlock) {
             Log.d(TAG, "Disconnecting device");
+            exitCancelWithCode("device_disconnected");
         }
 
         @Override
         public void onCancel(UsbDevice device) {
             Log.d(TAG, "onCancel called");
+            exitCancelWithCode("user_canceled");
         }
     };
 
@@ -195,9 +198,7 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
     public void onDialogResult(boolean canceled) {
         Log.d(TAG, "onDialogResult canceled: " + canceled);
         if (canceled) {
-            intentResult.putExtra("exit_code", "dialog_selection_canceled");
-            setResult(RESULT_CANCELED, intentResult);
-            finish();
+            exitCancelWithCode("user_canceled");
         }
     }
 
@@ -206,6 +207,12 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
 
     private void showToast(String msg, int duration) {
         Toast.makeText(this, msg, duration).show();
+    }
+
+    private void exitCancelWithCode(String code) {
+        intentResult.putExtra("exit_code", code);
+        setResult(RESULT_CANCELED, intentResult);
+        finish();
     }
 
     private void startPreview() {
@@ -289,9 +296,7 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
         @Override
         public void onClick(View v) {
             mCameraHandler.close();
-            intentResult.putExtra("exit_code", "user_canceled");
-            setResult(RESULT_CANCELED, intentResult);
-            finish();
+            exitCancelWithCode("user_canceled");
         }
     };
 
