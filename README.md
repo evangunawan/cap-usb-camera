@@ -26,7 +26,7 @@ npx cap sync
 ```
 
 Modify your `build.gradle` (top-level project scope),
-usually on `/android/build.gradle` directory if you are developing ionic-capacitor project.
+usually on `/android/build.gradle` path if you are developing ionic-capacitor project.
 
 Add new maven repository line to your `allprojects` -> `repositories` body.
 
@@ -56,7 +56,7 @@ import { UsbCamera } from '@periksa/cap-usb-camera';
 private async fetchExternalCameraPhoto(): Promise<void> {
   const photoResult = await UsbCamera.getPhoto({ saveToStorage: false });
   if (photoResult.status_code === 0) {
-    if (photoResult.exit_code === 'exit_no_devices') {
+    if (photoResult.exit_code === 'exit_no_device') {
       // Handle show alert/notice when there is no device attached.
     }
     return;
@@ -76,10 +76,9 @@ private async fetchExternalCameraPhoto(): Promise<void> {
 
 
 Then you can have the exit reason inside `exit_code`. Available values are:
-- `user_canceled` - User clicked *cancel* button on the camera activity. 
-- `dialog_selection_canceled` - User clicked *cancel* button on camera selection dialog
-(selection dialog appears if there is more than 1 camera device connected).
-- `exit_no_devices` - Plugin won't start the activity when there is no device connected.
+- `user_canceled` - User clicked *cancel* button or declined camera access permission on the plugin activity.
+- `exit_no_device` - Plugin won't start the activity when there is no device connected.
+- `device_disconnected` - Device is disconnected on plugin activity.
 - `success` - Exit code if the plugin succeed to take the photo.
 
 
@@ -128,7 +127,7 @@ If there is no usb device connected, will return canceled exit code.
 | Prop                | Type                                                 | Description                                                                                    |
 | ------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | **`status_code`**   | <code>number</code>                                  | Status Code from Intent ResultCode.                                                            |
-| **`status_code_s`** | <code>string</code>                                  | Description of the status code number.                                                         |
+| **`status_code_s`** | <code>string</code>                                  | Description string of the status code number.                                                  |
 | **`exit_code`**     | <code>string</code>                                  | Description of exit or cancel reason.                                                          |
 | **`data`**          | <code>{ dataURL?: string; fileURI?: string; }</code> | Result data payload, contains image in base64 DataURL, and Android filesystem URI to the file. |
 
