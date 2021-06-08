@@ -4,28 +4,22 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.ImageDecoder;
 import android.graphics.SurfaceTexture;
 import android.hardware.usb.UsbDevice;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 
+import com.serenegiant.common.BaseActivity;
 import com.serenegiant.usb_libuvccamera.CameraDialog;
 import com.serenegiant.usb_libuvccamera.LibUVCCameraUSBMonitor;
 import com.serenegiant.usb_libuvccamera.LibUVCCameraUSBMonitor.OnDeviceConnectListener;
@@ -34,18 +28,16 @@ import com.serenegiant.usbcameracommon.UVCCameraHandler;
 import com.serenegiant.widget.CameraViewInterface;
 
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.util.List;
 
 import static com.serenegiant.utils.FileUtils.getDateTimeString;
 
 
-public class USBCameraActivity extends AppCompatActivity implements CameraDialog.CameraDialogParent {
+public class USBCameraActivity extends BaseActivity implements CameraDialog.CameraDialogParent {
     private static final String TAG = "CamActivityDebug";
     /**
      * preview resolution(width)
@@ -109,7 +101,6 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
     @Override
     protected void onStart() {
         super.onStart();
-//        checkPermissionCamera();
         mUSBMonitor.register();
         if (mUVCCameraView != null)
             mUVCCameraView.onResume();
@@ -165,7 +156,6 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
         @Override
         public void onDettach(UsbDevice device) {
             Log.d(TAG, "Device Detached");
-            mCameraHandler.close();
         }
 
         @Override
@@ -179,7 +169,15 @@ public class USBCameraActivity extends AppCompatActivity implements CameraDialog
         @Override
         public void onDisconnect(UsbDevice device, LibUVCCameraUSBMonitor.UsbControlBlock ctrlBlock) {
             Log.d(TAG, "Disconnecting device");
-            exitCancelWithCode("device_disconnected");
+            if (mCameraHandler != null) {
+                queueEvent(new Runnable() {
+                    @Override
+                    public void run() {
+                        mCameraHandler.close();
+                    }
+                }, 0);
+                exitCancelWithCode("device_disconnected");
+            }
         }
 
         @Override
